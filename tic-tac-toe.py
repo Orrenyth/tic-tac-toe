@@ -287,10 +287,14 @@ class TicTacToe:
         print("Welcome to Tic-Tac-Toe!\n")
 
         self.player1_name = input("Enter Player 1 name: ")
-        self.player2_name = input("Enter Player 2 name (or 'Computer'): ")
 
         mode = input("Play against computer? (y/n): ").lower()
         self.vs_computer = (mode == "y")
+
+        if self.vs_computer:
+            self.player2_name = "Computer"
+        else:
+            self.player2_name = input("Enter Player 2 name: ")        
 
         self.player1_symbol = input(self.player1_name + " choose your symbol: ")
 
