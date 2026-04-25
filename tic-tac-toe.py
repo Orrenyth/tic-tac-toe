@@ -106,7 +106,7 @@ class TicTacToe:
             return False
 
         if self.board[row][col] != " ":
-            print("Cell already taken!")
+            print("Cell is already taken!")
             return False
 
         self.board[row][col] = self.current_player
@@ -183,7 +183,7 @@ class TicTacToe:
         print("\n===== GAME HISTORY =====")
         for i in range(len(self.history)):
             print("Game", i + 1, ":", self.history[i])
-        print("========================\n")
+        print("========================\n")  
 
     def play_single_game(self):
 
@@ -197,13 +197,14 @@ class TicTacToe:
 
             self.print_board()
 
+            valid_move = False  
+
             if self.vs_computer and self.current_player == self.player2_symbol:
 
                 self.computer_move()
+                valid_move = True
 
             else:
-
-                valid_move = False
 
                 try:
                     row = int(input(self.get_current_player_name() + " row (0-2): "))
@@ -213,47 +214,46 @@ class TicTacToe:
                 else:
                     valid_move = self.make_move(row, col)
 
-                if not valid_move:
-                    continue
+            if valid_move:
 
-            win, win_type, index, highlight = self.isWin(self.current_player)
+                win, win_type, index, highlight = self.isWin(self.current_player)
 
-            if win:
-                self.print_board(highlight)
+                if win:
+                    self.print_board(highlight)
 
-                player_display = self.get_current_player_name() + " (" + self.current_player + ")"
+                    player_display = self.get_current_player_name() + " (" + self.current_player + ")"
 
-                if win_type == "Row":
-                    print(player_display + " wins on Row " + str(index) + "!")
-                    result = player_display + " - Row " + str(index)
-                elif win_type == "Column":
-                    print(player_display + " wins on Column " + str(index) + "!")
-                    result = player_display + " - Column " + str(index)
-                elif win_type == "Diagonal":
-                    print(player_display + " wins on Main Diagonal!")
-                    result = player_display + " - Main Diagonal"
+                    if win_type == "Row":
+                        print(player_display + " wins on Row " + str(index) + "!")
+                        result = player_display + " - Row " + str(index)
+                    elif win_type == "Column":
+                        print(player_display + " wins on Column " + str(index) + "!")
+                        result = player_display + " - Column " + str(index)
+                    elif win_type == "Diagonal":
+                        print(player_display + " wins on Main Diagonal!")
+                        result = player_display + " - Main Diagonal"
+                    else:
+                        print(player_display + " wins on Anti-Diagonal!")
+                        result = player_display + " - Anti-Diagonal"
+
+                    self.history.append(result)
+
+                    if self.current_player == self.player1_symbol:
+                        self.score_player1 += 1
+                    else:
+                        self.score_player2 += 1
+
+                    self.game_over = True
+
+                elif self.isDraw():
+                    self.print_board()
+                    print("It's a draw!")
+                    self.draws += 1
+                    self.history.append("Draw")
+                    self.game_over = True
+
                 else:
-                    print(player_display + " wins on Anti-Diagonal!")
-                    result = player_display + " - Anti-Diagonal"
-
-                self.history.append(result)
-
-                if self.current_player == self.player1_symbol:
-                    self.score_player1 += 1
-                else:
-                    self.score_player2 += 1
-
-                self.game_over = True
-
-            elif self.isDraw():
-                self.print_board()
-                print("It's a draw!")
-                self.draws += 1
-                self.history.append("Draw")
-                self.game_over = True
-
-            else:
-                self.changePlayer()
+                    self.changePlayer()
 
     def show_final_result(self):
 
