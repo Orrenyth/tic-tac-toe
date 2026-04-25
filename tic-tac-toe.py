@@ -125,6 +125,10 @@ class TicTacToe:
                 if self.board[r][c] == " ":
                     empty.append((r, c))
 
+        if len(empty) == 0:
+            print("No moves left for the computer to make")
+            return 
+        
         row, col = random.choice(empty)
         self.make_move(row, col)
 
