@@ -302,18 +302,20 @@ class TicTacToe:
 
         self.player1_symbol = input(self.player1_name + " choose your symbol: ")
 
-        while self.player1_symbol == "":
-            print("Symbol cannot be empty!")
-            self.player1_symbol = input(self.player1_name + " choose your symbol: ")
+        while len(self.player1_symbol) != 1 or self.player1_symbol == " ":
+            print("Please enter only one character!")
+            self.player1_symbol = input(self.player1_name + " choose your symbol : ")
 
         self.player2_symbol = input(self.player2_name + " choose your symbol: ")
 
-        while self.player2_symbol == "" or self.player2_symbol == self.player1_symbol:
-            if self.player2_symbol == "":
-                print("Symbol cannot be empty!")
+        while (len(self.player2_symbol) != 1 or self.player2_symbol == " " or self.player2_symbol == self.player1_symbol):
+
+            if len(self.player2_symbol) != 1 or self.player2_symbol == " ":
+                print("Please enter only one character!")
             else:
-                print("Symbol already taken by " + self.player1_name + "! Choose a different symbol.")
-            self.player2_symbol = input(self.player2_name + " choose your symbol: ")
+                print("Symbol already taken by " + self.player1_name + "! Kindly choose a different symbol.")
+
+            self.player2_symbol = input(self.player2_name + " choose your symbol : ")        
 
         self.current_player = self.player1_symbol
 
