@@ -125,6 +125,7 @@ class TicTacToe:
                 if self.board[r][c] == " ":
                     empty.append((r, c))
 
+        #safety check for worst case scenario per TA, but I didn't feel the need for it
         if len(empty) == 0:
             print("No moves left for the computer to make")
             return 
