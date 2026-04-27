@@ -293,7 +293,12 @@ class TicTacToe:
 
         self.player1_name = input("Enter Player 1 name: ")
 
-        mode = input("Play against computer? (y/n): ").lower()
+        mode = input("Play against computer? (y/n): ").lower().strip()
+
+        while mode != "y" and mode != "n":
+            print("Please enter only 'y' or 'n'.")
+            mode = input("Play against computer? (y/n): ").lower().strip()  
+                  
         self.vs_computer = (mode == "y")
 
         if self.vs_computer:
